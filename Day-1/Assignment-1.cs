@@ -24,11 +24,11 @@ namespace Assignments
 
         }
 
-        //public static void Main(string[] args)
-        //{
-        //    Assignment1 assignment1 = new Assignment1();
-        //    assignment1.func();
-        //}
+        public static void Main(string[] args)
+        {
+            Assignment1 assignment1 = new Assignment1();
+            assignment1.func();
+        }
 
     }
 

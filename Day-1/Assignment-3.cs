@@ -17,24 +17,24 @@ namespace Assignment_3
             p.name = "rahul";
             b = 11;
         }
-        //static void Main(string[] args)
-        //{
+        static void Main(string[] args)
+        {
 
-        //    Person p = new Person();
+            Person p = new Person();
 
-        //    p.name = "Krunal";
-        //    int b = 10;
+            p.name = "Krunal";
+            int b = 10;
 
-        //    Console.WriteLine(p.name);
-        //    Console.WriteLine(b);
+            Console.WriteLine(p.name);
+            Console.WriteLine(b);
 
-        //    Change(p, b);
+            Change(p, b);
 
-        //    Console.WriteLine(p.name);
-        //    Console.WriteLine(b);
-        //}
+            Console.WriteLine(p.name);
+            Console.WriteLine(b);
+        }
 
-        
+
 
     }
 }
