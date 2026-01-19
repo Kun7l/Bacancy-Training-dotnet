@@ -8,21 +8,40 @@ namespace Assignments
 {
     public class Assignment_4
     {
-        public void func()
+        class Student
         {
-            String username = null;
-
-            Console.WriteLine("Enter 1 to type information or 0 for exit ");
-            int a = Convert.ToInt32(Console.ReadLine());
-            if (a == 1)
+            //nulable 
+            int? age = null;
+            
+            string? name = null;
+            public Student(int? age, string? name)
             {
-                Console.WriteLine("Enter username");
-                username = Console.ReadLine();
+                this.age = age;
+                this.name = name;
+            }
+            public void display()
+            {
+                //use of hasValue
+                if (age.HasValue)
+                {
+                    Console.WriteLine(age);
+                }
+                else
+                {
+                    Console.WriteLine("Age not provided");
+                }
+                
+                //Null coalesing
+                string displayName = name ?? "Guest";
+                Console.WriteLine("Hello "+ displayName);       
             }
 
-            String displayName = username ?? "Guest";
+        }
 
-            Console.WriteLine("Hello " + displayName);
+        public static void Main(String[] args)
+        {
+            Student student = new Student(null,null);
+            student.display();
         }
     }
 }

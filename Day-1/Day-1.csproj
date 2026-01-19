@@ -6,6 +6,7 @@
     <RootNamespace>Day_1</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>Assignments.Assignment_4</StartupObject>
   </PropertyGroup>
 
 </Project>

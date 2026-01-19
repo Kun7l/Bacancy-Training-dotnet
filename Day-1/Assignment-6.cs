@@ -20,10 +20,17 @@ namespace Assignments
         {
             //Compiler time error below
 
-            //taxRate = 13;
-            //orderId = 12;
+            taxRate = 13;
+            orderId = 12;
 
         }
+
+        public static void Main(string[] args)
+        {
+            Order order = new Order(12);
+            order.changeValues();
+        }
+
     }
 
 }
