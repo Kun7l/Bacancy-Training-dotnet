@@ -29,34 +29,34 @@ namespace Day_6
             }
         }
 
-        public static void Main(string[] args)
-        {
-            Concurrent_collection cc = new Concurrent_collection();
-            cc.list.Add(0);
+        //public static void Main(string[] args)
+        //{
+        //    Concurrent_collection cc = new Concurrent_collection();
+        //    cc.list.Add(0);
            
-            Thread t1 = new Thread(cc.AddSetA);
-            Thread t2 = new Thread(cc.AddSetB);
+        //    Thread t1 = new Thread(cc.AddSetA);
+        //    Thread t2 = new Thread(cc.AddSetB);
 
-            t1.Start();
-            t2.Start();
+        //    t1.Start();
+        //    t2.Start();
 
-            t1.Join();
-            t2.Join();
+        //    t1.Join();
+        //    t2.Join();
 
-            int sumList = 0;
-            int sumConBag = 0;
-            foreach(var item in cc.list)
-            {
-                sumList += item;
-            }
-            foreach(var item in cc.bag)
-            {
-                sumConBag += item;
-            }
-            Console.WriteLine("By logic Adding 1-10 2 times result in total of 110");
-            Console.WriteLine("If you get 110 in both, run again");
-            Console.WriteLine("Sum of List " + sumList);
-            Console.WriteLine("Sum of Concurrent Bag " + sumConBag);
-        }
+        //    int sumList = 0;
+        //    int sumConBag = 0;
+        //    foreach(var item in cc.list)
+        //    {
+        //        sumList += item;
+        //    }
+        //    foreach(var item in cc.bag)
+        //    {
+        //        sumConBag += item;
+        //    }
+        //    Console.WriteLine("By logic Adding 1-10 2 times result in total of 110");
+        //    Console.WriteLine("If you get 110 in both, run again");
+        //    Console.WriteLine("Sum of List " + sumList);
+        //    Console.WriteLine("Sum of Concurrent Bag " + sumConBag);
+        //}
     }
 }
