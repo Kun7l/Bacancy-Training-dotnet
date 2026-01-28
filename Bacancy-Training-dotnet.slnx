@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/OOP/">
+    <Project Path="OOP-Day-1/OOP-Day-1.csproj" Id="130855f3-72e9-4317-b78d-3420fefb2126" />
+  </Folder>
   <Project Path="Day-1/Day-1.csproj" />
   <Project Path="Day-2/Day-2.csproj" />
   <Project Path="Day-3/Day-3.csproj" Id="b6674995-2551-4d97-acfc-202517f8c50a" />
