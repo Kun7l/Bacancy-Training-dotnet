@@ -2,6 +2,7 @@
   <Folder Name="/OOP/">
     <Project Path="OOP-Day-1/OOP-Day-1.csproj" Id="130855f3-72e9-4317-b78d-3420fefb2126" />
     <Project Path="OOP-Day-2/OOP-Day-2.csproj" Id="2fa5c887-9945-44fd-b3ad-555d3f404a94" />
+    <Project Path="OOP-Day-3/OOP-Day-3.csproj" Id="aa2c1992-f662-4290-9612-6b497a8765b4" />
   </Folder>
   <Project Path="Day-1/Day-1.csproj" />
   <Project Path="Day-2/Day-2.csproj" />
