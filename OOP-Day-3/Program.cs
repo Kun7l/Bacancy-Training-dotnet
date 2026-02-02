@@ -1,20 +1,20 @@
-﻿class Animal
-{
-    public void Introduce() => Console.WriteLine("Hi i am animal");
-    public void MakeSound() => Console.WriteLine("Making sound");
+﻿using System;
 
-}
-class Dog : Animal
+public class Program
 {
-    public new void MakeSound() => Console.WriteLine("bark");
-    public void MoveTail() => Console.WriteLine("Move tail");
+    public static int display()
+    {
+        try
+        {
+            return 1;
+        }
+        finally
+        {
+            //return 2;
+        }
+    }
+    public static void Main()
+    {
+        Console.WriteLine(display());
+    }
 }
-
-//class Program
-//{
-//    static void Main(string[] args)
-//    {
-//        Dog dog = new Dog();
-//        dog.MakeSound();
-//    }
-//}

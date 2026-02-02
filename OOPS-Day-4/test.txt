@@ -1,0 +1,8 @@
+Hey this is a test.txt file.
+We are using it for IDisposable interface.
+02-02-2026 11:20:49: Application started
+02-02-2026 11:20:49: Something happened
+02-02-2026 11:20:57: Application started
+02-02-2026 11:20:57: Something happened
+02-02-2026 11:22:17: Application started
+02-02-2026 11:22:17: Something happened
