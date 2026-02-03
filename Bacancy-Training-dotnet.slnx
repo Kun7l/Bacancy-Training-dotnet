@@ -7,4 +7,8 @@
   <Project Path="CSharpBasics/Day-6/Day-6.csproj" />
   <Project Path="LINQ/LINQ-Day-1/LINQ-Day-1.csproj" />
   <Project Path="LINQ/LINQ-Day-2/LINQ-Day-2.csproj" Id="6a696cb8-63c0-48de-8fec-bed63f9f56d5" />
+  <Project Path="OOPS/OOP-Day-1/OOP-Day-1.csproj" />
+  <Project Path="OOPS/OOP-Day-2/OOP-Day-2.csproj" />
+  <Project Path="OOPS/OOP-Day-3/OOP-Day-3.csproj" />
+  <Project Path="OOPS/OOPS-Day-4/OOPS-Day-4.csproj" />
 </Solution>
