@@ -1,17 +1,10 @@
 <Solution>
-  <Folder Name="/LINQ/">
-    <Project Path="LINQ-Day-1/LINQ-Day-1.csproj" Id="4a698eba-6d16-4ac3-9167-f6e802a18ac7" />
-  </Folder>
-  <Folder Name="/OOP/">
-    <Project Path="OOP-Day-1/OOP-Day-1.csproj" Id="130855f3-72e9-4317-b78d-3420fefb2126" />
-    <Project Path="OOP-Day-2/OOP-Day-2.csproj" Id="2fa5c887-9945-44fd-b3ad-555d3f404a94" />
-    <Project Path="OOP-Day-3/OOP-Day-3.csproj" Id="aa2c1992-f662-4290-9612-6b497a8765b4" />
-    <Project Path="OOPS-Day-4/OOPS-Day-4.csproj" Id="cec77fdc-ae26-4f73-bc25-c954b7f2fe4e" />
-  </Folder>
-  <Project Path="Day-1/Day-1.csproj" />
-  <Project Path="Day-2/Day-2.csproj" />
-  <Project Path="Day-3/Day-3.csproj" Id="b6674995-2551-4d97-acfc-202517f8c50a" />
-  <Project Path="Day-4/Day-4.csproj" Id="cd76f330-7908-4308-839d-f1a5eb895915" />
-  <Project Path="Day-5/Day-5.csproj" Id="5458f6cf-6549-47f4-bdd2-f02476e3ed16" />
-  <Project Path="Day-6/Day-6.csproj" Id="cd620b1d-3326-4b42-ad10-fa4a8482fe40" />
+  <Project Path="CSharpBasics/Day-1/Day-1.csproj" />
+  <Project Path="CSharpBasics/Day-2/Day-2.csproj" />
+  <Project Path="CSharpBasics/Day-3/Day-3.csproj" />
+  <Project Path="CSharpBasics/Day-4/Day-4.csproj" />
+  <Project Path="CSharpBasics/Day-5/Day-5.csproj" />
+  <Project Path="CSharpBasics/Day-6/Day-6.csproj" />
+  <Project Path="LINQ/LINQ-Day-1/LINQ-Day-1.csproj" />
+  <Project Path="LINQ/LINQ-Day-2/LINQ-Day-2.csproj" Id="6a696cb8-63c0-48de-8fec-bed63f9f56d5" />
 </Solution>
