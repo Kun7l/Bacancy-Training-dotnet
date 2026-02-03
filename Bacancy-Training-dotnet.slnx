@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/LINQ/">
+    <Project Path="LINQ-Day-1/LINQ-Day-1.csproj" Id="4a698eba-6d16-4ac3-9167-f6e802a18ac7" />
+  </Folder>
   <Folder Name="/OOP/">
     <Project Path="OOP-Day-1/OOP-Day-1.csproj" Id="130855f3-72e9-4317-b78d-3420fefb2126" />
     <Project Path="OOP-Day-2/OOP-Day-2.csproj" Id="2fa5c887-9945-44fd-b3ad-555d3f404a94" />
