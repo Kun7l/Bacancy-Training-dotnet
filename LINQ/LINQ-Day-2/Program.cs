@@ -30,13 +30,11 @@ namespace Program
             Queries q = new Queries();
 
 
-            //q.Task1(employees, departments);
-            //q.Task2(employees, departments);
-            //q.Task3(employees, departments);
-            //q.Task4(employees, departments);
+            q.Task1(employees, departments);
+            q.Task2(employees, departments);
+            q.Task3(employees, departments);
+            q.Task4(employees, departments);
             q.Task5(list1, list2);
-
-
 
         }
     }
