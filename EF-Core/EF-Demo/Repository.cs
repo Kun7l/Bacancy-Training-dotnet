@@ -44,9 +44,11 @@ namespace EF_Demo
             _context.SaveChanges();
         }
 
-        public void CreateBatch(Batch batch)
+        public void CreateBatch(int courseId, int trainerId,DateOnly StartDate)
         {
-            _context.Batches.Add(batch);
+
+            _context.Batches.Add(new Batch { CourseId = courseId,TrainerId = trainerId,StartDate = StartDate});
+            
             _context.SaveChanges();
         }
 
@@ -69,7 +71,7 @@ namespace EF_Demo
             Console.WriteLine(trainer.Name);
             foreach (var item in trainer.Batches)
             {
-                Console.WriteLine(trainer);
+                Console.WriteLine("Batch Id : "+item.Id);
             }
         }
     }
