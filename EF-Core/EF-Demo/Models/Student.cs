@@ -9,7 +9,7 @@ using System.Text;
 
 namespace EF_Demo
 {
-    internal class Student
+    public class Student
     {
         [Key]
         public int Id { get; set; }
@@ -22,7 +22,7 @@ namespace EF_Demo
         public DateOnly CreatedDate { get; set; }
 
         
-        public ICollection<Course> courses { get; set; }
+        public virtual ICollection<Course> courses { get; set; }
 
     }
 }

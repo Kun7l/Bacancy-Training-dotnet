@@ -6,7 +6,7 @@ using System.Text;
 
 namespace EF_Demo
 {
-    internal class Batch
+    public class Batch
     {
         [Key]
         public int Id { get; set; }
@@ -14,12 +14,12 @@ namespace EF_Demo
 
         [ForeignKey("CourseId")]
         public int CourseId {  get; set; }
-        public Course Course { get; set; }
+        public virtual Course Course { get; set; }
 
         [ForeignKey("trainerId")]
         public int TrainerId { get; set; }
 
-        public Trainer Trainer { get; set; }
+        public virtual Trainer Trainer { get; set; }
 
 
     }

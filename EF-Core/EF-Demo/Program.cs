@@ -14,8 +14,6 @@ namespace EF_Demo
             {
                 Repository rs = new Repository(context);
 
-               
-
                 bool flag = true;
 
                 int choice = 0;
@@ -32,7 +30,8 @@ namespace EF_Demo
                     Console.WriteLine("6. Show Course with all students");
                     Console.WriteLine("7. Show Trainer with all branches ");
                     Console.WriteLine("8. Create Batch");
-                    Console.WriteLine("9. Exit");
+                    Console.WriteLine("9. Update Student Email");
+                    Console.WriteLine("10.Exit");
 
                     choice = Convert.ToInt32(Console.ReadLine());
 
@@ -111,6 +110,57 @@ namespace EF_Demo
                             break;
 
                         case 9:
+                            Console.WriteLine("Enter Student Id :");
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Enter New Email :");
+                            string? newEmail = Console.ReadLine();
+                            try
+                            {
+                                if (newEmail != null)
+                                {
+                                    rs.UpdateStudentEmail(id, newEmail);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Enter Valid Email");
+                                }
+                            }
+                            catch (StudentNotFound s)
+                            {
+                                Console.WriteLine(s.Message);
+                            }
+                            break;
+
+                            case 10:
+                            Console.WriteLine("Enter Trainer Name");
+                            string? trainerName = Console.ReadLine();
+                            if (trainerName==null)
+                            {
+                                Console.WriteLine("Name cannot be empty");
+                                break;
+                            }
+                            Console.WriteLine("Enter Experience in Years");
+                            int trainerExp =Convert.ToInt32(Console.ReadLine());
+                            rs.AddTrainer(trainerName, trainerExp);
+                            break;
+
+                            case 11:
+                            Console.WriteLine("Enter Trainer Id:");
+                            tId = Convert.ToInt32(Console.ReadLine());
+                            rs.DeleteTrainer(tId);
+                            break;
+
+                            case 12:
+                            rs.EagerLoadingExample(2);
+                            break;
+                        case 13:
+                            rs.LazyLoading(2);
+                            break;
+                        case 14:
+                            rs.NplusOne();
+                            break;
+
+                        case 20:
                             flag = false;
                             break;
                     }

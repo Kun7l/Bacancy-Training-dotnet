@@ -11,11 +11,45 @@ namespace EF_Demo
             _context = context;
         }
 
+        // ----- Student Services -----
+
         public void AddStudent(Student student)
         {
             _context.Students.Add(student);
             _context.SaveChanges();
         }
+        public List<Student> ShowAllStudents()
+        {
+            return _context.Students.ToList();
+        }
+
+        public Student? SelectStudent(int studentId)
+        {
+            return _context.Students.SingleOrDefault(s=>s.Id == studentId);
+        }
+
+        public void UpdateStudentEmail(int studentId,string Email)
+        {
+            var student = _context.Students.SingleOrDefault(s => s.Id == studentId);
+            if (student != null)
+            {
+                student.Email = Email;
+                var state = _context.Entry(student).State;
+                Console.WriteLine(state);
+                _context.SaveChanges();
+                state = _context.Entry(student).State;
+                Console.WriteLine(state);
+            }
+            else
+            {
+                throw new StudentNotFound("Student for Id : " + studentId + "  cannot be found");
+            }
+
+        }
+
+
+
+
 
         public void AddCourse(Course course)
         {
@@ -23,11 +57,7 @@ namespace EF_Demo
             _context.SaveChanges();
         }
 
-        public List<Student> ShowAllStudents()
-        {
-            return _context.Students.ToList();
-        }
-
+       
         public List<Course> ShowAllCourses()
         {
             return _context.Courses.ToList();
@@ -64,6 +94,35 @@ namespace EF_Demo
             }
         }
 
+        //----- Trainer Services -----
+
+        public void AddTrainer(string name, int experienceInYears)
+        {
+            _context.Trainers.Add(new Trainer { Name = name, ExperienceYears = experienceInYears });
+            _context.SaveChanges();
+        }
+        public void DeleteTrainer(int trainerId)
+        {
+            var trainer = _context.Trainers.SingleOrDefault(t=>t.Id == trainerId);
+
+            if (trainer != null)
+            {
+                _context.Trainers.Remove(trainer);
+                var state = _context.Entry(trainer).State;
+
+                Console.WriteLine(state);
+
+                _context.SaveChanges();
+                state = _context.Entry(trainer).State;
+                Console.WriteLine(state);
+                Console.WriteLine(trainer.Name);
+            }
+            else
+            {
+                Console.WriteLine("Trainer for Id: "+trainerId+" not found");
+            }
+        }
+
         public void ShowTrainerWithBatches(int TrainerId)
         {
             var trainer = _context.Trainers.Include(t => t.Batches).First(t => t.Id == TrainerId);
@@ -73,6 +132,69 @@ namespace EF_Demo
             {
                 Console.WriteLine("Batch Id : "+item.Id);
             }
+        }
+
+        public void EagerLoadingExample(int studentId)
+        {
+            var student = _context.Students.Include(s => s.courses).ThenInclude(c => c.Batches).FirstOrDefault(s=>s.Id == studentId);
+            var totalBatches = student.courses.SelectMany(c => c.Batches).Count();
+
+            Console.WriteLine(student.Name +" Has enrolled in "+ student.courses.Count() + " Courses and "+ totalBatches +" Batches");
+
+        }
+
+        public void ExplicitLoading(int studentId)
+        {
+            var student = _context.Students.SingleOrDefault(s => s.Id == studentId);
+
+            _context.Entry(student).Collection(s => s.courses).Load();
+
+            Console.WriteLine(student.Name);
+            foreach (var item in student.courses)
+            {
+                Console.WriteLine(item.Title);
+            }
+        }
+
+        public void LazyLoading(int trainedId)
+        {
+            var trainer = _context.Trainers.FirstOrDefault(t => t.Id == trainedId);
+
+            Console.WriteLine(trainer.Batches.Count());
+
+        }
+        public void NplusOne()
+        {
+            //without include 
+            var courses = _context.Courses.ToList();
+
+            foreach (var course in courses)
+            {
+                Console.WriteLine(course.Title);
+                Console.WriteLine("Enrolled student in "+course.Title);
+                foreach (var student in course.Students)
+                {
+                    Console.WriteLine(student.Name);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+           
+            //with include
+            var result = _context.Courses.Include(c => c.Students);
+
+            foreach (var course in result)
+            {
+                Console.WriteLine(course.Title);
+                Console.WriteLine("Enrolled student in " + course.Title);
+                foreach (var student in course.Students)
+                {
+                    Console.WriteLine(student.Name);
+                }
+                Console.WriteLine();
+            }
+
         }
     }
 }

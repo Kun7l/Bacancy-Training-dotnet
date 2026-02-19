@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EF_Demo
 {
-    internal class Trainer
+    public class Trainer
     {
        public int Id { get; set; }
 
@@ -12,6 +12,6 @@ namespace EF_Demo
 
         public int ExperienceYears { get; set; }
 
-        public ICollection<Batch> Batches { get; set; }
+        public virtual ICollection<Batch> Batches { get; set; }
     }
 }

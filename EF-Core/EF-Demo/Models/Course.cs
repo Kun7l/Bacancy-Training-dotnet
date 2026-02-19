@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EF_Demo
 {
-    internal class Course
+    public class Course
     {
         [Key]
         public int Id { get; set; }
@@ -17,9 +17,9 @@ namespace EF_Demo
         public Double Fees { get; set; }
         public int DurationInMonths { get; set; }
 
-        public ICollection<Batch> Batches { get; set; }
+        public virtual ICollection<Batch> Batches { get; set; }
 
-        public ICollection<Student> Students { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
 
     }
 }

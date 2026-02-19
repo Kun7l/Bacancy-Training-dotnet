@@ -1,6 +1,7 @@
 ﻿
 using EF_Demo.Model_Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 
 
 namespace EF_Demo
@@ -15,7 +16,8 @@ namespace EF_Demo
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=KRUNAL\SQLEXPRESS;Database=EF_Demo;Trusted_Connection=True;TrustServerCertificate=True;");
+            var counter = new QueryCounterInterceptor();
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(@"Server=KRUNAL\SQLEXPRESS;Database=EF_Demo;Trusted_Connection=True;TrustServerCertificate=True;").AddInterceptors(counter);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
