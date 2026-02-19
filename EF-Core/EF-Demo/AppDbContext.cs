@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using EF_Demo.Model_Configuration;
 using Microsoft.EntityFrameworkCore;
-using Models;
+
 
 namespace EF_Demo
 {
@@ -11,9 +10,20 @@ namespace EF_Demo
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
 
+        public DbSet<Trainer> Trainers { get; set; }
+        public DbSet<Batch> Batches { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=KRUNAL\SQLEXPRESS;Database=EF_Demo;Trusted_Connection=True;TrustServerCertificate=True;");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new StudentConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseConfiguration());
+            modelBuilder.ApplyConfiguration(new TrainerConfiguration());
+            modelBuilder.ApplyConfiguration(new BatchConfiguration());
+        }    
     }
 }

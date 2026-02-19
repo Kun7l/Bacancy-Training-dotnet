@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Demo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260217035712_DeptAdded")]
-    partial class DeptAdded
+    [Migration("20260218004005_Deptadded")]
+    partial class Deptadded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,7 @@ namespace EF_Demo.Migrations
                     b.Property<DateOnly>("CreatedDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("Department")
+                    b.Property<string>("Dept")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

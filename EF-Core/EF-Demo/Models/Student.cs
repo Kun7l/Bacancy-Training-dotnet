@@ -1,27 +1,28 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
 
-namespace Models
+namespace EF_Demo
 {
     internal class Student
     {
+        [Key]
         public int Id { get; set; }
+
+        [Required, MaxLength(50)]
         public string Name { get; set; }
+
+        [Required]
         public string Email { get; set; }
         public DateOnly CreatedDate { get; set; }
 
-        public string Department { get; set; }
+        
+        public ICollection<Course> courses { get; set; }
 
-    }
-
-    internal class Course
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public Double Fees { get; set; }
-        public int DurationInMonths { get; set; }
     }
 }

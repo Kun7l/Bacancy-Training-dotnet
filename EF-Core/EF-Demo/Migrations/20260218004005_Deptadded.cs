@@ -5,13 +5,13 @@
 namespace EF_Demo.Migrations
 {
     /// <inheritdoc />
-    public partial class DeptAdded : Migration
+    public partial class Deptadded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Department",
+                name: "Dept",
                 table: "Students",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -22,7 +22,7 @@ namespace EF_Demo.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Department",
+                name: "Dept",
                 table: "Students");
         }
     }
