@@ -95,6 +95,30 @@ namespace EF_Demo
         {
             return _context.Courses.ToList();
         }
+        public void UpdateCourse(int courseId, string? newName, string? newEmail)
+        {
+            var student = _context.Students.SingleOrDefault(s => s.Id == studentId);
+            if (student != null)
+            {
+                if (newName != null)
+                {
+                    student.Name = newName;
+                }
+                if (newEmail != null)
+                {
+                    student.Email = newEmail;
+                }
+                var state = _context.Entry(student).State;
+                Console.WriteLine(state);
+                _context.SaveChanges();
+                state = _context.Entry(student).State;
+                Console.WriteLine(state);
+            }
+            else
+            {
+                Console.WriteLine("Student for Id " + studentId + " cannot be found.");
+            }
+        }
 
 
 
@@ -178,40 +202,6 @@ namespace EF_Demo
             {
                 Console.WriteLine(item.Title);
             }
-        }
-        public void AttachAndDetachState(int studentId)
-        {
-            //Student is not tracked because using AsNotracking
-            var student = _context.Students.AsNoTracking().FirstOrDefault(s=>s.Id == studentId);
-            // Checking state : Detached
-            Console.WriteLine(_context.Entry(student).State);
-            Console.WriteLine($"Student name before updation : {student.Name}");
-
-            student.Name = "Deep";
-
-            //Now mannually attaching it
-            _context.Entry(student).State = EntityState.Modified;
-
-            _context.SaveChanges();
-
-            student = _context.Students.FirstOrDefault(s => s.Id == studentId);
-            Console.WriteLine($"Student name after updation : {student.Name}");
-        }
-        public void AsNoTrackignExample(int studentId)
-        {
-            var student = _context.Students.AsNoTracking().FirstOrDefault(s => s.Id == studentId);
-
-            Console.WriteLine($"Student name before updation : {student.Name}");
-
-            //Updating student name 
-            student.Name = "Updated name";
-
-            _context.SaveChanges();
-
-            //fetching again after updation
-            student = _context.Students.FirstOrDefault(s => s.Id == studentId);
-
-            Console.WriteLine($"Student name after updation : {student.Name}");   
         }
 
         public void LazyLoading(int trainedId)
