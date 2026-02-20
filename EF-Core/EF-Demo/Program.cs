@@ -31,7 +31,12 @@ namespace EF_Demo
                     Console.WriteLine("7. Show Trainer with all branches ");
                     Console.WriteLine("8. Create Batch");
                     Console.WriteLine("9. Update Student Email");
-                    Console.WriteLine("10.Exit");
+                    Console.WriteLine("10. Add Trainer");
+                    Console.WriteLine("11. Delete Trainer");
+                    Console.WriteLine("12. Eager Loading Example");
+                    Console.WriteLine("13. Lazy Loading Example");
+                    Console.WriteLine("14. N+1 Query and solve with Include()");
+                    Console.WriteLine("20. Exit");
 
                     choice = Convert.ToInt32(Console.ReadLine());
 

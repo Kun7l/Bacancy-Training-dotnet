@@ -27,7 +27,30 @@ namespace EF_Demo
         {
             return _context.Students.SingleOrDefault(s=>s.Id == studentId);
         }
-
+        public void UpdateStudent(int studentId,string? newName,string? newEmail)
+        {
+            var student = _context.Students.SingleOrDefault(s => s.Id == studentId);
+            if(student != null)
+            {
+                if(newName != null)
+                {
+                    student.Name = newName;
+                }
+                if (newEmail != null)
+                {
+                    student.Email = newEmail;
+                }
+                var state = _context.Entry(student).State;
+                Console.WriteLine(state);
+                _context.SaveChanges();
+                state = _context.Entry(student).State;
+                Console.WriteLine(state);
+            }
+            else
+            {
+                Console.WriteLine("Student for Id "+studentId+" cannot be found.");
+            }
+        }
         public void UpdateStudentEmail(int studentId,string Email)
         {
             var student = _context.Students.SingleOrDefault(s => s.Id == studentId);
@@ -46,10 +69,20 @@ namespace EF_Demo
             }
 
         }
+        public void EnrollStudentInCourse(int studentId, int courseId)
+        {
+            var student = _context.Students.Include(s => s.courses).First(s => s.Id == studentId);
+            var course = _context.Courses.First(c => c.Id == courseId);
+
+
+            student.courses.Add(course);
+
+            _context.SaveChanges();
+        }
 
 
 
-
+        //----- Course Services -----
 
         public void AddCourse(Course course)
         {
@@ -62,17 +95,32 @@ namespace EF_Demo
         {
             return _context.Courses.ToList();
         }
-
-        public void EnrollStudentInCourse(int studentId, int courseId)
+        public void UpdateCourse(int courseId, string? newName, string? newEmail)
         {
-            var student = _context.Students.Include(s => s.courses).First(s => s.Id == studentId);
-            var course = _context.Courses.First(c => c.Id == courseId);
-
-
-            student.courses.Add(course);
-
-            _context.SaveChanges();
+            var student = _context.Students.SingleOrDefault(s => s.Id == studentId);
+            if (student != null)
+            {
+                if (newName != null)
+                {
+                    student.Name = newName;
+                }
+                if (newEmail != null)
+                {
+                    student.Email = newEmail;
+                }
+                var state = _context.Entry(student).State;
+                Console.WriteLine(state);
+                _context.SaveChanges();
+                state = _context.Entry(student).State;
+                Console.WriteLine(state);
+            }
+            else
+            {
+                Console.WriteLine("Student for Id " + studentId + " cannot be found.");
+            }
         }
+
+
 
         public void CreateBatch(int courseId, int trainerId,DateOnly StartDate)
         {
@@ -194,7 +242,6 @@ namespace EF_Demo
                 }
                 Console.WriteLine();
             }
-
         }
     }
 }
