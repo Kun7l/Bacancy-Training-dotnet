@@ -36,6 +36,8 @@ namespace EF_Demo
                     Console.WriteLine("12. Eager Loading Example");
                     Console.WriteLine("13. Lazy Loading Example");
                     Console.WriteLine("14. N+1 Query and solve with Include()");
+                    Console.WriteLine("15. Demonstration of Detached state");
+                    Console.WriteLine("16. Attaching entity manually and updating it");
                     Console.WriteLine("20. Exit");
 
                     choice = Convert.ToInt32(Console.ReadLine());
@@ -163,6 +165,12 @@ namespace EF_Demo
                             break;
                         case 14:
                             rs.NplusOne();
+                            break;
+                        case 15:
+                            rs.AsNoTrackignExample(2);
+                            break;
+                            case 16:
+                            rs.AttachAndDetachState(2);
                             break;
 
                         case 20:
