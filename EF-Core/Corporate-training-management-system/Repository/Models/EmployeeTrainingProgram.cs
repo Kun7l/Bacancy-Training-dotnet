@@ -4,7 +4,15 @@ using System.Text;
 
 namespace Corporate_training_management_system.Repository.Models
 {
-    internal class EmployeeTrainingProgram
+    public class EmployeeTrainingProgram
     {
+        public int EmployeeId { get; set; }
+        public int TrainingProgramId { get; set; }
+
+        public DateOnly EnrollmentDate { get; set; }
+        public int Score { get; set; } = 0;
+
+        public Employee Employee { get; set; }
+        public TrainingProgram TrainingProgram { get; set; }
     }
 }

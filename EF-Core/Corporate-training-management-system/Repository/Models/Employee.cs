@@ -9,7 +9,15 @@ namespace Corporate_training_management_system.Repository.Models
         public int Id { get; set; }    
         public string Name { get; set; }
 
+        public string Email { get; set; }
+
         public int DepartmentId { get; set; }
+
+        public Department Department { get; set; }
+
+        public ICollection<TrainingProgram> TrainingPrograms { get; set; }
+
+        public ICollection<EmployeeTrainingProgram> EmployeeTrainingPrograms { get; set; }
 
     }
 }

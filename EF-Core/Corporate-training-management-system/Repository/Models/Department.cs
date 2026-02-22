@@ -10,5 +10,7 @@ namespace Corporate_training_management_system.Repository.Models
         public string Name { get; set; }
 
         public string Location { get; set; }
+
+        public ICollection<Employee> Employees { get; set; }
     }
 }
