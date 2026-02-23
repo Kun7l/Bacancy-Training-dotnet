@@ -11,6 +11,6 @@ namespace Corporate_training_management_system.Repository.Models
 
         public string Location { get; set; }
 
-        public ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

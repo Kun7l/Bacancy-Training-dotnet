@@ -12,7 +12,7 @@ namespace Corporate_training_management_system.Repository.Models
         public DateOnly EnrollmentDate { get; set; }
         public int Score { get; set; } = 0;
 
-        public Employee Employee { get; set; }
-        public TrainingProgram TrainingProgram { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual TrainingProgram TrainingProgram { get; set; }
     }
 }

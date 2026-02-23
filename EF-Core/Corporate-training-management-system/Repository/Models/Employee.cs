@@ -13,11 +13,11 @@ namespace Corporate_training_management_system.Repository.Models
 
         public int DepartmentId { get; set; }
 
-        public Department Department { get; set; }
+        public virtual Department Department { get; set; }
 
-        public ICollection<TrainingProgram> TrainingPrograms { get; set; }
+        public virtual ICollection<TrainingProgram> TrainingPrograms { get; set; }
 
-        public ICollection<EmployeeTrainingProgram> EmployeeTrainingPrograms { get; set; }
+        public virtual ICollection<EmployeeTrainingProgram> EmployeeTrainingPrograms { get; set; }
 
     }
 }

@@ -16,17 +16,20 @@ namespace Corporate_training_management_system.Repository.Models.Configuration
 
 
             builder.HasMany(e => e.TrainingPrograms)
-        .WithMany(t => t.Employees)
-   .UsingEntity<EmployeeTrainingProgram>(
-       j => j.HasOne(et => et.TrainingProgram).WithMany(t => t.EmployeeTrainingProgram).HasForeignKey(et => et.TrainingProgramId),
-       j => j.HasOne(et => et.Employee).WithMany(e => e.EmployeeTrainingPrograms).HasForeignKey(et => et.EmployeeId),
-       j =>
-       {
-           j.HasKey(et => new { et.EmployeeId, et.TrainingProgramId });
-           j.Property(et => et.EnrollmentDate).HasDefaultValueSql("GETUTCDATE()");
-           j.Property(et => et.Score).HasDefaultValue(0);
+            .WithMany(t => t.Employees)
+            .UsingEntity<EmployeeTrainingProgram>(
+            j => j.HasOne(et => et.TrainingProgram).WithMany(t => t.EmployeeTrainingProgram).HasForeignKey(et => et.TrainingProgramId),
+            j => j.HasOne(et => et.Employee).WithMany(e => e.EmployeeTrainingPrograms).HasForeignKey(et => et.EmployeeId),
+            j =>
+               {
+                   j.HasKey(et => new { et.EmployeeId, et.TrainingProgramId });
+                   j.Property(et => et.EnrollmentDate).HasDefaultValueSql("GETUTCDATE()");
+                   j.Property(et => et.Score).HasDefaultValue(0);
 
-       });
+            });
+
+            builder.HasData(new Employee { Id = 1, Name = "Krunal", Email = "crunal@company.com", DepartmentId = 1 },
+                new Employee { Id = 2, Name = "Charvin", Email = "charvin@company.com", DepartmentId = 2 });
         }
     }
 }

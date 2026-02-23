@@ -10,6 +10,6 @@ namespace Corporate_training_management_system.Repository.Models
         public string Name { get; set; }
         public List<string> ExpertiesLevel { get; set; }
 
-        public ICollection<TrainingProgram> TrainingPrograms { get; set; }
+        public virtual ICollection<TrainingProgram> TrainingPrograms { get; set; }
     }
 }

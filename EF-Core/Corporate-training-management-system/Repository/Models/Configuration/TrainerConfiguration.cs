@@ -12,7 +12,7 @@ namespace Corporate_training_management_system.Repository.Models.Configuration
         {
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Name).HasMaxLength(20);
-
+            builder.HasData(new Trainer { Id = 1, Name = "Akshay", ExpertiesLevel = new List<String> { ".NET", "C#" } });
         }
     }
 }

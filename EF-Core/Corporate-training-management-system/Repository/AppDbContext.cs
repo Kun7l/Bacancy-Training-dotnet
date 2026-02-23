@@ -8,17 +8,17 @@ using System.Text;
 
 namespace Corporate_training_management_system.Repository
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        DbSet<TrainingProgram> TrainingPrograms { get; set; }
-        DbSet<Employee> Employees { get; set; }
-        DbSet<Department> Departments { get; set; }
+       public DbSet<TrainingProgram> TrainingPrograms { get; set; }
+      public DbSet<Employee> Employees { get; set; }
+      public DbSet<Department> Departments { get; set; }
 
-        DbSet<Trainer> Trainers { get; set; }
+       public DbSet<Trainer> Trainers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server = KRUNAL\\SQLEXPRESS; Database = ctmsDB; Trusted_Connection = True; TrustServerCertificate = true");
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server = KRUNAL\\SQLEXPRESS; Database = ctmsDB; Trusted_Connection = True; TrustServerCertificate = true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
