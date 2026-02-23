@@ -1,8 +1,10 @@
 ﻿using Corporate_training_management_system.Repository.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Data.SqlClient;
 
 namespace Corporate_training_management_system.Repository.Repository
 {
@@ -22,72 +24,100 @@ namespace Corporate_training_management_system.Repository.Repository
                 result.Add(new Models.TrainingProgram { Title = title, DurationInDays = durationInDays, StartDate = startDate, TrainerId = trainerId });
                 _context.SaveChanges();
             }
-            catch(Exception e)
+            catch(DbUpdateException ex)
             {
-                Console.WriteLine(title + " already exits. Add a unique title.");
+                Console.WriteLine("SQL exception");
             }
-            
+ 
         }
 
         public void ShowTrainingProgram(int tpId)
         {
             var tp = _context.TrainingPrograms.Include(tp=>tp.Trainer).FirstOrDefault(tp=>tp.Id == tpId);
 
-            Console.WriteLine("Title : " + tp.Title);
-            Console.WriteLine("Trainer Name : "+tp.Trainer.Name);
-            Console.WriteLine("Duration : "+tp.DurationInDays + " days");
-
-           
-
-            _context.Entry(tp).Collection(tp => tp.Employees).Load();
-           
-            
-            
-            if (tp.Employees.Count != 0)
+           if(tp!= null)
             {
-                Console.WriteLine("Enrolled employees");
-                Console.WriteLine("--------------------------------------");
-                Console.WriteLine(" Id | Name | Department | Score");
+                Console.WriteLine("Title : " + tp.Title);
+                Console.WriteLine("Trainer Name : " + tp.Trainer.Name);
+                Console.WriteLine("Duration : " + tp.DurationInDays + " days");
 
-                foreach (var employee in tp.Employees)
+
+
+                _context.Entry(tp).Collection(tp => tp.Employees).Load();
+
+
+
+                if (tp.Employees.Count != 0)
                 {
-                    Console.WriteLine(" " + employee.Id + " | " + employee.Name + " | " + employee.Department.Name + " | " + employee.EmployeeTrainingPrograms.First(e=>e.TrainingProgramId == tpId).Score);
+                    Console.WriteLine("Enrolled employees");
+                    Console.WriteLine("--------------------------------------");
+                    Console.WriteLine(" Id | Name | Department | Score");
+
+                    foreach (var employee in tp.Employees)
+                    {
+                        Console.WriteLine(" " + employee.Id + " | " + employee.Name + " | " + employee.Department.Name + " | " + employee.EmployeeTrainingPrograms.First(e => e.TrainingProgramId == tpId).Score);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("--------------------------------------");
+                    Console.WriteLine("No Employees enrolled yet.");
                 }
             }
             else
             {
-                Console.WriteLine("--------------------------------------");
-                Console.WriteLine("No Employees enrolled yet.");
+                Console.WriteLine($"Training program for id : {tpId} not found.");
             }
         }
 
         public void DepartmentReport(int deptId)
         {
             var dept = _context.Departments.Include(d=>d.Employees).ThenInclude(e=>e.EmployeeTrainingPrograms).FirstOrDefault(d=>d.Id == deptId);
-            Console.WriteLine("Department Name : "+dept.Name);
-            Console.WriteLine("Total employees : "+dept.Employees.Count());
-            int total = 0;
-            foreach (var item in dept.Employees)
+            if (dept != null)
             {
-                total += item.EmployeeTrainingPrograms.Count();
+                Console.WriteLine("Department Name : " + dept.Name);
+                Console.WriteLine("Total employees : " + dept.Employees.Count());
+                int total = 0;
+                foreach (var item in dept.Employees)
+                {
+                    total += item.EmployeeTrainingPrograms.Count();
+                }
+                Console.WriteLine("Employees Enrolled in Training " + total);
             }
-            Console.WriteLine("Employees Enrolled in Training " +total);
+            else
+            {
+                Console.WriteLine($"Department for id : {deptId} not found.");
+            }
 
         }
 
         public void UpdateScore(int empId, int tpId,int score)
         {
-         var emps = _context.Employees.Include(e=>e.EmployeeTrainingPrograms).SingleOrDefault(e=>e.Id == empId);
-            var emp = emps.EmployeeTrainingPrograms.SingleOrDefault(e=>e.TrainingProgramId == tpId);
+            var employee = _context.Employees.Include(e=>e.EmployeeTrainingPrograms).SingleOrDefault(e=>e.Id == empId);
+            var trainingProgram = employee.EmployeeTrainingPrograms.SingleOrDefault(e=>e.TrainingProgramId == tpId);
 
-            if (score <= 100)
+            if (employee != null)
             {
-                emp.Score = score;
-                _context.SaveChanges();
+                if (trainingProgram != null)
+                {
+                    if (score <= 100)
+                    {
+                        trainingProgram.Score = score;
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Marks cannot be more than 100");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Employee is not enrolled in {tpId}");
+                }
             }
             else
             {
-                Console.WriteLine("Marks cannot be more than 100");
+                Console.WriteLine($"Employee for id : {empId} not found.");
             }
         }
 
@@ -102,7 +132,7 @@ namespace Corporate_training_management_system.Repository.Repository
             }
             else
             {
-                Console.WriteLine("Cant find tp for this id");
+                Console.WriteLine($"Cant find training program for id : {tpId}");
             }
         }
     }

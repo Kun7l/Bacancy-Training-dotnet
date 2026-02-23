@@ -46,9 +46,19 @@ namespace Corporate_training_management_system
                             string title = Console.ReadLine();
                             Console.WriteLine("Enter Duration in Days");
                             int days = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Enter Training ID");
+                            Console.WriteLine("Enter Trainer ID");
                             int trainerId = Convert.ToInt32(Console.ReadLine());
-                            tpr.CreateTrainingPogram(title, days, DateOnly.FromDateTime(DateTime.Now),trainerId);
+                           
+
+                            if (trainerId >0)
+                            {
+                                tpr.CreateTrainingPogram(title, days, DateOnly.FromDateTime(DateTime.Now), trainerId);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Enter Valid trainer id");
+                            }
+
                             break;
 
                         case 2:
