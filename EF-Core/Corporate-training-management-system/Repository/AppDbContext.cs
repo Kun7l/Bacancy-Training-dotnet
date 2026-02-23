@@ -16,6 +16,8 @@ namespace Corporate_training_management_system.Repository
 
        public DbSet<Trainer> Trainers { get; set; }
 
+        public DbSet<EmployeeTrainingProgram> EmployeeTrainingPrograms { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server = KRUNAL\\SQLEXPRESS; Database = ctmsDB; Trusted_Connection = True; TrustServerCertificate = true");
