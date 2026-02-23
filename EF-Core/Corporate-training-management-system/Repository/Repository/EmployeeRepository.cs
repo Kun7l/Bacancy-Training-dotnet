@@ -16,6 +16,7 @@ namespace Corporate_training_management_system.Repository.Repository
         {
             var employees = _context.Employees;
             employees.Add(new Models.Employee { Name = name, Email = email,DepartmentId = deptId });
+            _context.SaveChanges();
         }
 
         public void EnrollEmployeeInTraining(int employeeId,int tpId)

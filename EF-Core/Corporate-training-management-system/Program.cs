@@ -76,7 +76,7 @@ namespace Corporate_training_management_system
                         case 3:
                             Console.WriteLine("Enter Employee Id");
                             int empId = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Enter Employee Id");
+                            Console.WriteLine("Enter Training Program Id");
                             int tpId = Convert.ToInt32(Console.ReadLine());
                             emp.EnrollEmployeeInTraining(empId, tpId);
                             break;
