@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mapster;
+using Microsoft.AspNetCore.Mvc;
+using Product_Catalog_Api.Controllers.DTO;
 using Product_Catalog_Api.Repository.Interface;
 using Product_Catalog_Api.Repository.Model;
-using Product_Catalog_Api.Services;
+
 
 namespace Product_Catalog_Api.Controllers
 {
@@ -19,36 +21,39 @@ namespace Product_Catalog_Api.Controllers
         [HttpGet]
         public async Task<ActionResult> Getall()
         {
-            var products = _productRepository.GetAllProducts();
-            if (products == null || products.Count == 0)
+            var products = await _productRepository.GetAllProducts();
+            var productList = products.Adapt<List<ProductDTO>>();
+           
+            if (productList == null || productList.Count == 0)
             {
                 return NotFound("Product not found");
             }
             else
             {
-                return Ok(products);
+                return Ok(productList);
             }
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult> GetWithId(int id)
         {
-            var product = _productRepository.GetProductWithId(id);
+            var product = await _productRepository.GetProductWithId(id);
+            var dto = product.Adapt<ProductDTO>();
             if (product == null)
             {
                 return NotFound("Product not found");
             }
             else
             {
-                return Ok(product);
+                return Ok(dto);
             }
         }
 
         [HttpGet("catagory/{catagory}")]
         public async Task<ActionResult> GetWithCatagory(string catagory)
         {
-            var product = _productRepository.GetProductsWithCatagoryNames(catagory);
-            if (product == null || product.Count == 0)
+            var product = await _productRepository.GetProductsWithCatagoryNames(catagory);
+            if (product == null)
             {
                 return NotFound($"No products found for catagory : {catagory}");
             }
@@ -59,28 +64,32 @@ namespace Product_Catalog_Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(Product product)
+        public async Task<ActionResult> AddProduct(ProductDTO product)
+            
         {
-            _productRepository.AddProduct(product);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(product);
+            }
+            await _productRepository.AddProduct(product);
             return Ok(product);
         }
 
-        [HttpPost("update")]
-        public IActionResult UpdateProduct(Product product) { 
-            bool res = _productRepository.UpdateProduct(product);
-
-            if (!res)
+        [HttpPatch("update/{id}")]
+        public async Task<ActionResult> UpdateProduct(int id,ProductDTO product)
+        {
+            if (await _productRepository.UpdateProductAsync(id,product))
             {
-               return NotFound("Not found");
+                return NotFound("Not found");
             }
 
-           return Ok("Updated");
+            return Ok("Updated");
         }
 
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteProduct(int id) {
+        public async Task<ActionResult> DeleteProduct(int id) {
 
-            if (_productRepository.DeleteProduct(id))
+            if (await _productRepository.DeleteProduct(id))
             {
                 return Ok("Deleted");
             }
@@ -88,7 +97,6 @@ namespace Product_Catalog_Api.Controllers
             {
                 return NotFound("Not found");
             }
-
         }
     }
 }

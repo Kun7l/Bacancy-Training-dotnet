@@ -1,19 +1,20 @@
-﻿using Product_Catalog_Api.Repository.Model;
+﻿using Product_Catalog_Api.Controllers.DTO;
+using Product_Catalog_Api.Repository.Model;
 
 namespace Product_Catalog_Api.Repository.Interface
 {
     public interface IProductRepository
     {
-        public List<Product> GetAllProducts();
-        public Product GetProductWithId(int id);
+        public Task<List<Product>> GetAllProducts();
+        public Task<Product?> GetProductWithId(int id);
 
-        public List<Product> GetProductsWithCatagoryNames(string catagory);
+        public Task<List<Product>> GetProductsWithCatagoryNames(string catagory);
 
-        public void AddProduct(Product product);
+        public Task AddProduct(ProductDTO product);
 
-        public bool UpdateProduct(Product product);
+        public Task<bool> UpdateProductAsync(int id,ProductDTO product);
 
-        public bool DeleteProduct(int id);
+        public Task<bool> DeleteProduct(int id);
         
     }
 }
