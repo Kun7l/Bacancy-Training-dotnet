@@ -1,4 +1,4 @@
-﻿using Mapster;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Product_Catalog_Api.Controllers.DTO;
 using Product_Catalog_Api.Repository.Data;

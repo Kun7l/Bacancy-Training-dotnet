@@ -1,4 +1,5 @@
-﻿using Mapster;
+using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Product_Catalog_Api.Controllers.DTO;
 using Product_Catalog_Api.Repository.Interface;
@@ -18,7 +19,9 @@ namespace Product_Catalog_Api.Controllers
             _productRepository = productRepository;
         }
 
+        
         [HttpGet]
+        [Authorize(Roles = "admin,vendor,customer")]
         public async Task<ActionResult> Getall()
         {
             var products = await _productRepository.GetAllProducts();
@@ -35,6 +38,7 @@ namespace Product_Catalog_Api.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "admin,vendor,customer")]
         public async Task<ActionResult> GetWithId(int id)
         {
             var product = await _productRepository.GetProductWithId(id);
@@ -50,6 +54,7 @@ namespace Product_Catalog_Api.Controllers
         }
 
         [HttpGet("catagory/{catagory}")]
+        [Authorize(Roles = "admin,vendor,customer")]
         public async Task<ActionResult> GetWithCatagory(string catagory)
         {
             var product = await _productRepository.GetProductsWithCatagoryNames(catagory);
@@ -64,6 +69,7 @@ namespace Product_Catalog_Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin,vendor")]
         public async Task<ActionResult> AddProduct(ProductDTO product)
             
         {
@@ -76,6 +82,7 @@ namespace Product_Catalog_Api.Controllers
         }
 
         [HttpPatch("update/{id}")]
+        [Authorize(Roles = "admin,vendor")]
         public async Task<ActionResult> UpdateProduct(int id,ProductDTO product)
         {
             if (await _productRepository.UpdateProductAsync(id,product))
@@ -87,6 +94,7 @@ namespace Product_Catalog_Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "admin,vendor")]
         public async Task<ActionResult> DeleteProduct(int id) {
 
             if (await _productRepository.DeleteProduct(id))
@@ -98,5 +106,8 @@ namespace Product_Catalog_Api.Controllers
                 return NotFound("Not found");
             }
         }
+
+
+        
     }
 }

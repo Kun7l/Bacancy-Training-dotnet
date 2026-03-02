@@ -1,4 +1,4 @@
-﻿using Product_Catalog_Api.Controllers.DTO;
+using Product_Catalog_Api.Controllers.DTO;
 using Product_Catalog_Api.Repository.Model;
 
 namespace Product_Catalog_Api.Repository.Interface
