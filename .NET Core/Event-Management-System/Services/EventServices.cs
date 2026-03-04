@@ -1,4 +1,4 @@
-﻿using Event_Management_System.Repository.Interface;
+using Event_Management_System.Repository.Interface;
 using Event_Management_System.Repository.Model;
 using Event_Management_System.Services.DTO;
 using Event_Management_System.Services.Interface;
@@ -11,7 +11,13 @@ namespace Event_Management_System.Services
     {
         public async Task<Event?> CreateEvent(EventDTO eventDetails,int userId)
         {
-            
+            // Check if an event with the same name already exists
+            var existingEvent = await _repository.ViewEventByName(eventDetails.Name);
+            if (existingEvent != null)
+            {
+                throw new InvalidOperationException($"Event with name '{eventDetails.Name}' already exists.");
+            }
+
             Event newEvent = eventDetails.Adapt<Event>();
             newEvent.CreatedBy = userId;
 

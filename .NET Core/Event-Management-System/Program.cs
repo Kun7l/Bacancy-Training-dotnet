@@ -1,3 +1,4 @@
+using Event_Management_System.Middlewares;
 using Event_Management_System.Repository;
 using Event_Management_System.Repository.Data;
 using Event_Management_System.Repository.Interface;
@@ -59,6 +60,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
