@@ -40,5 +40,25 @@ namespace Event_Management_System.Services
 
             return await _repository.UpdateEvent(eventDetails);
         }
+
+        public async Task<List<Event>> ViewAllEvents()
+        {
+            return await _repository.ViewAllEvents();
+        }
+
+        public async Task<EventDTO?> ViewEventByName(string name)
+        {
+            var @event = await _repository.ViewEventByName(name);
+            if (@event == null)
+            {
+                return null;
+            }
+            return @event.Adapt<EventDTO>();
+        }
+
+        public async Task<bool> RegisterEvent(string eventName,int userId)
+        {
+           return await _repository.RegisterEvent(eventName, userId);
+        }
     }
 }

@@ -102,5 +102,15 @@ namespace Event_Management_System.Services
 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
+
+        public Task<List<Event>> ViewRegisteredEvent(int userId)
+        {
+            return _repository.ViewRegisteredEvent(userId);
+        }
+
+        public async Task<bool> CancleRegistration(int userId, string eventName)
+        {
+            return await _repository.CancelRegistration(userId, eventName);
+        }
     }
 }

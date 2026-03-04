@@ -44,6 +44,33 @@ namespace Event_Management_System.Controller
             return Ok(@event);
         }
 
+        [HttpGet("viewall")]
+        public async Task<ActionResult<List<Event>>> ViewAllEvents()
+        {
+            return await _services.ViewAllEvents();
+        }
 
+        [HttpGet("view{name}")]
+        public async Task<ActionResult<EventDTO>> ViewEventByName(string name) { 
+            var @event =  await _services.ViewEventByName(name);
+
+            if (@event == null) return BadRequest("Event not found.");
+            
+            return Ok(@event);
+        }
+
+        [HttpPost("register-event")]
+        [Authorize(Roles ="attendee")]
+        public async Task<ActionResult<string>> RegisterAttendeEvent(string eventName)
+        {
+
+            int userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            bool registered = await _services.RegisterEvent(eventName,userId);
+
+            if (!registered) {
+                return BadRequest("Event not found or already registered.");
+            }
+            return Ok("successfully registered.");
+        }
     }
 }

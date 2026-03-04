@@ -29,5 +29,28 @@ namespace Event_Management_System.Repository
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Event>> ViewRegisteredEvent(int userId)
+        {
+            var @event = await _context.EventAttendee.Include(ea => ea.Event).Where(ea => ea.AttendeeId == userId).Select(e=>e.Event).ToListAsync();
+
+            return @event;
+
+        }
+
+        public async Task<bool> CancelRegistration(int userId,string eventName)
+        {
+            var @event = await _context.Events.FirstOrDefaultAsync(e=>e.Name == eventName);
+            if (@event == null) return false;
+
+            var registered = await _context.EventAttendee.FirstOrDefaultAsync(e => e.AttendeeId == userId && e.EventId == @event.Id);
+
+            if (registered == null) return false;
+
+            _context.EventAttendee.Remove(registered);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

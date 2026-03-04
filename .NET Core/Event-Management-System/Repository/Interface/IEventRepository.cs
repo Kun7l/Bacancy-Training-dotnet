@@ -13,5 +13,7 @@ namespace Event_Management_System.Repository.Interface
         public Task<List<Event>> ViewAllEvents();
 
         public Task<Event?> ViewEventByName(string eventName);
+
+        public Task<bool> RegisterEvent(string eventName, int userId);
     }
 }

@@ -45,9 +45,9 @@ namespace Event_Management_System.Repository
             return @event;
         }
 
-        public Task<List<Event>> ViewAllEvents()
+        public async Task<List<Event>> ViewAllEvents()
         {
-            throw new NotImplementedException();
+           return await _context.Events.ToListAsync();
         }
 
         public async Task<Event?> ViewEventByName(string eventName)
@@ -57,6 +57,30 @@ namespace Event_Management_System.Repository
                 return null;
             }
             return @event;
+        }
+
+        public async Task<bool> RegisterEvent(string eventName, int userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var @event = await _context.Events.FirstOrDefaultAsync(e => e.Name == eventName);
+
+            if (user == null || @event == null) return false;
+
+            // prevent duplicate registrations
+            var alreadyRegistered = await _context.EventAttendee
+                .AnyAsync(ea => ea.EventId == @event.Id && ea.AttendeeId == userId);
+
+            if (alreadyRegistered) return false;
+
+            var attendee = new EventAttendee
+            {
+                EventId = @event.Id,
+                AttendeeId = userId
+            };
+
+            _context.EventAttendee.Add(attendee);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

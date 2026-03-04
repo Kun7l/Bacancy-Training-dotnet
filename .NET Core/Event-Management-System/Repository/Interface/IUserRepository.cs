@@ -8,5 +8,9 @@ namespace Event_Management_System.Repository.Interface
         public Task<User?> GetUserWithUserName(string username);
 
         public Task DeleteUserWithUserName(string username);
+
+        public Task<List<Event>> ViewRegisteredEvent(int userId);
+
+        public Task<bool> CancelRegistration(int userId,string eventName);
     }
 }

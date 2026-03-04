@@ -1,8 +1,10 @@
 ﻿using Event_Management_System.Repository.Model;
 using Event_Management_System.Services.DTO;
 using Event_Management_System.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Event_Management_System.Controller
 {
@@ -56,6 +58,27 @@ namespace Event_Management_System.Controller
             }
 
             return Ok("Succefully deleted.");
+        }
+
+        [HttpGet("view-registered-events")]
+        [Authorize(Roles =("attendee"))]
+
+        public async Task<ActionResult<List<Event>>> ViewRegisteredEvent()
+        {
+            int userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return await _services.ViewRegisteredEvent(userId);
+        }
+
+        [HttpPost("cencle-registration")]
+        [Authorize(Roles =("attendee"))]
+        public async Task<ActionResult<string>> CancelRegistration(string eventName)
+        {
+            int userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var cancled = await _services.CancleRegistration(userId, eventName);
+            if (!cancled) return BadRequest("Not found");
+            return Ok("Succesfully canceled");
         }
     }
 }

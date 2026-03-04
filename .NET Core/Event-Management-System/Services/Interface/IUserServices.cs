@@ -13,5 +13,9 @@ namespace Event_Management_System.Services.Interface
 
         public Task<bool> UpdateUser(string UserName);
 
+        public Task<List<Event>> ViewRegisteredEvent(int userId);
+
+        public Task<bool> CancleRegistration(int userId, string eventName);
+
     }
 }

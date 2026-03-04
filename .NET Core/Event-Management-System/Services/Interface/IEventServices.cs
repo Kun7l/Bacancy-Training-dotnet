@@ -7,7 +7,14 @@ namespace Event_Management_System.Services.Interface
     {
         public Task<Event?> CreateEvent(EventDTO eventDetails,int userId);
 
-        public Task<Event?> UpdateEvent(EventUpdateDTO eventDetails,string userName); 
-        
+        public Task<Event?> UpdateEvent(EventUpdateDTO eventDetails,string userName);
+
+        public Task<List<Event>> ViewAllEvents();
+
+        public Task<EventDTO?> ViewEventByName(string eventName);
+
+        public Task<bool> RegisterEvent(string eventName,int userId);
+
+
     }
 }
