@@ -22,6 +22,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+builder.Services.AddMemoryCache();
+
 //injecting services
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<IEventServices, EventServices>();
@@ -61,6 +63,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+app.UseAuthentication();
+app.UseMiddleware<UserRateLimitingMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
