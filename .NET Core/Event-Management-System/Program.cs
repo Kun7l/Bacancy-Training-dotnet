@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
+using System.Security.Claims;
 using System.Text;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,39 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 });
 
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    /* this set a global rate limiter to all the endpoints by using  */
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+    {
+
+        string? userId = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        string ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        string key = string.IsNullOrWhiteSpace(userId) ? $"ip:{ip}" : $"user:{userId}   ";
+
+        /* configuring which algorithm to use-
+        here using FixedWindows Limiter */
+        return RateLimitPartition.GetFixedWindowLimiter(key, _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = 10,
+            Window = TimeSpan.FromMinutes(1),
+            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+            QueueLimit = 0,
+            AutoReplenishment = true
+        });
+    });
+
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.ContentType = "application/json";
+        await context.HttpContext.Response.WriteAsJsonAsync(new
+        {
+            message = "Rate limit exceeded. Try again later."
+        }, token);
+    };
+});
+
 
 var app = builder.Build();
 
@@ -64,9 +99,8 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 app.UseAuthentication();
-app.UseMiddleware<UserRateLimitingMiddleware>();
+app.UseRateLimiter();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
