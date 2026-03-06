@@ -9,7 +9,7 @@ namespace Event_Management_System.Repository
     {
         public async Task<User?> Register(User user)
         {
-            if (await _context.Users.AnyAsync(u => u.Id == user.Id)) {
+            if (await _context.Users.AnyAsync(u => u.UserName == user.UserName)) {
                 return null;
             }
             _context.Users.Add(user);

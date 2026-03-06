@@ -25,6 +25,7 @@ namespace Event_Management_System.Controller
         }
 
         [HttpPost("register-organizer")]
+        [Authorize(Roles =("admin"))]
         public async Task<ActionResult<User>> RegisterOrganizer(UserRegisterDTO request)
         {
             var user = await _services.RegisterOrganizer(request);
